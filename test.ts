@@ -15,9 +15,10 @@ async function testFetchingResponses() {
   ];
   // const hostName = "localhost";
   const hostName = "fillout-assessment-production.up.railway.app";
+  const port = parseInt(process.env.PORT) || 3000;
   try {
     const res = await superagent
-      .get(`http://${hostName}:80/cLZojxk94ous/filteredResponses`)
+      .get(`http://${hostName}:${port}/cLZojxk94ous/filteredResponses`)
       .query({
         filters: filters.map((filter) => JSON.stringify(filter)),
       });

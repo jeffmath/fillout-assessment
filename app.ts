@@ -9,7 +9,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", router);
 
-const port = 80;
+const port = parseInt(process.env.PORT) || 3000;
 http
   .createServer(app)
-  .listen(port, () => console.log(`Server listening on port ${port}`));
+  .listen(port, "0.0.0.0", () =>
+    console.log(`Server listening on port ${port}`),
+  );
