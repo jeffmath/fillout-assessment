@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/app.js",
+    "build": "npx tsc",
     "compile": "npx tsc -w"
   },
   "dependencies": {
