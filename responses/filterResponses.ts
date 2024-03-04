@@ -9,7 +9,7 @@ export async function filterResponses(req: Request, res: Response) {
     const { responses } = apiResBody;
 
     // apply the filters
-    const filters = parseFilters(req.query.filters as string | string[]);
+    const filters = parseFilters(req.query.filters as QueryFilters);
     const filtered = applyFilters(responses, filters);
 
     // respond with the filtered results
@@ -27,6 +27,8 @@ export async function filterResponses(req: Request, res: Response) {
     res.json(message);
   }
 }
+
+type QueryFilters = string | string[] | undefined;
 
 type ResponseFilter = {
   id: string;
@@ -58,11 +60,12 @@ async function fetchResponses(
   return res.body;
 }
 
-function parseFilters(filterStrings: string | string[]): ResponseFilter[] {
-  const filters =
-    typeof filterStrings === "string"
-      ? [JSON.parse(filterStrings)]
-      : filterStrings.map((raw: string) => JSON.parse(raw) as ResponseFilter);
+function parseFilters(queryFilters: QueryFilters): ResponseFilter[] {
+  const filters = !queryFilters
+    ? []
+    : typeof queryFilters === "string"
+      ? [JSON.parse(queryFilters)]
+      : queryFilters.map((raw: string) => JSON.parse(raw) as ResponseFilter);
   console.log("Filters:\n" + JSON.stringify(filters));
   return filters;
 }
