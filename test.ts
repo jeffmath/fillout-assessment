@@ -13,12 +13,13 @@ async function testFetchingResponses() {
     //   value: "2021-08-22",
     // },
   ];
-  // const hostName = "localhost";
+  // note that Railway only uses the Express server's port number internally,
+  // so when employing the server's Railway domain name, the port number is not used
+  // const hostName = "localhost:3000";
   const hostName = "fillout-assessment-production.up.railway.app";
-  const port = parseInt(process.env.PORT) || 3000;
   try {
     const res = await superagent
-      .get(`http://${hostName}:${port}/cLZojxk94ous/filteredResponses`)
+      .get(`http://${hostName}/cLZojxk94ous/filteredResponses`)
       .query({
         filters: filters.map((filter) => JSON.stringify(filter)),
       });
