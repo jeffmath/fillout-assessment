@@ -2,11 +2,6 @@ import { Request, Response } from "express";
 import * as superagent from "superagent";
 
 export async function filterResponses(req: Request, res: Response) {
-  res.status(200);
-  res.json({ responses: [] });
-  console.log("filterResponses() called");
-  return;
-
   try {
     // fetch the responses
     const { formId } = req.params;
